@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <img src="img/logo.png" alt="" />
+      </header>
+
+      <main>
+        <div class="wrapper">
+          <h1>TODO LIST</h1>
+
+          <div class="new-todo">
+            <p class="error" v-show="error">Errore! il campo non può essere vuoto</p>
+            <input type="text" placeholder="Aggiugni un nuovo todo" v-model.trim="newTask.text" @keyup.enter="addTask"/>
+            <button class="add-btn" @click="addTask">Aggiungi</button>
+          </div>
+
+          <ul class="todo-list" v-if="todos.length > 0 && completedTasks.length !== todos.length">
+            <li v-for="(task,index) in todos" >
+              <p :class="{ done: task.done }">{{ task.text }}</p>
+              <span class="completed" @click="done(index)">&check;</span>
+            </li>
+          </ul>
+
+
+          <div class="empty-list" v-else>
+            <h3>Hai finito tutte le task di oggi!</h3>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
